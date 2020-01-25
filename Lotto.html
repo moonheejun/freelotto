@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title> -	로또 	  - </title>
+	<script type="text/javascript">
+			
+		var lottoNumbers  = new Array(45);
+		
+		function GetLotto()
+		{
+
+			var GameCnt  = document.getElementById('GameNumer').value;
+			var loopcnt  = 0;
+			var arIndex  = 0;
+			var dispObj = document.getElementById('outputNumbers');
+			dispObj.innerHTML = "";
+			var displayStr = '';
+
+			while( GameCnt )
+			{				
+// 초기화
+				displayStr = '';
+				loopcnt = 0;
+				for( i = 0; i < lottoNumbers.length ; i++)
+					lottoNumbers[i] = false;
+			
+// 번호 추출
+				while(loopcnt <= 6)
+				{			
+					arIndex   =  ((Math.random()*100) % 45).toString().split('.')[0];
+					if( lottoNumbers[arIndex] == false)
+					{
+						lottoNumbers[arIndex] = true;
+						loopcnt++;
+						if( loopcnt  == 6)
+							break;	
+					}								
+				}
+// display			
+				
+				displayStr = "<div width='300px' height='26px' style='float:both' >";
+
+				for( j = 0;   j < lottoNumbers.length ; j++)
+				{
+					if( lottoNumbers[j] == true )
+					{
+						displayStr += '<div style="Margin:1 1 1 1;float:left; BACKGROUND-IMAGE: url(img/LotBackImg.GIF);width:27px;">';
+						displayStr += '<div style="Margin:5 5 5 4;" >';
+						displayStr += (j+1).toString();
+						displayStr += ' </div>';
+						displayStr += ' </div>';
+					}				
+				}
+	
+				displayStr += " </div><br><br>";
+				dispObj.innerHTML += displayStr;
+				GameCnt--;
+			}
+		}
+
+	</script>
+</head>
+<body id='thebody'>	
+	<form  id='from1' runat='server'>		
+		<div	name='lotdiv'>
+		게임횟수<input type="textbox" id="GameNumer" value="1">	<input type="button" name='lot' id='lot' value="go" onclick="GetLotto();">
+		</div>
+		<div id="outputNumbers">
+		</div>
+	</form>
+</body>
+</html>
